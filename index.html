@@ -83,7 +83,7 @@ h1{
     var time = (new Date().getTime());
 
     $.when(
-      $.ajax('http://195.238.126.147/10MB.bin', settings),
+      $.ajax('/10MB.bin', settings),
     ).done(function (a1) {
       endedAt = new Date().getTime();
       var totalTime = (endedAt - startedAt);
