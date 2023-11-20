@@ -44,13 +44,7 @@
 
     $.when(
       $.ajax('http://195.238.126.147/doc.doc', settings),
-      $.ajax('http://195.238.126.147/doc.doc', settings),
-      $.ajax('http://195.238.126.147/doc.doc', settings),
-      $.ajax('http://195.238.126.147/doc.doc', settings),
-      $.ajax('http://195.238.126.147/doc.doc', settings),
-      $.ajax('http://195.238.126.147/doc.doc', settings),
-      $.ajax('http://195.238.126.147/doc.doc', settings),
-    ).done(function (a1,a2,a3,a4,a5,a6,a7) {
+    ).done(function (a1) {
       endedAt = new Date().getTime();
       var totalTime = (endedAt - startedAt);
       console.log(totalTime);
