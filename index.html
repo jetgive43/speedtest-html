@@ -30,6 +30,7 @@
   </div>
 </body>
 <script>
+  var speed_array = [];
   function startDownload() {
     $('div.loading').show();
     var startedAt, endedAt;
@@ -69,20 +70,26 @@
         }
         console.log(data);
         speed = (data.toFixed(2) + identifier).fixed(2);
+        speed_array.push(speed);
       }
       else {
         speed = 'Too fast seem like around certainly >= 8MB/s';
       }
-      $('p.speed').html(speed);
-      $('p.time').html(time_total);
-      $('div.loading').hide();
-      $('div.text').show();
+      // $('p.speed').html(speed);
+      // $('p.time').html(time_total);
+      // $('div.loading').hide();
+      // $('div.text').show();
     })
   };
 
   $(document).ready(function () {
     $('div.text').hide();
-    startDownload();
+    setInterval(() => {
+      startDownload();
+    },1000);
+    if(speed_array.length == 20){
+      console.log("okay");
+    }
   });
   // var imageAddr =
   //     "http://195.238.126.147/file.jpg";
