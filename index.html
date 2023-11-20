@@ -86,10 +86,12 @@
     $('div.text').hide();
     setInterval(() => {
       startDownload();
+       if (speed_array.length == 20) {
+        console.log("okay");
+        console.log(speed_array);
+      }
     },1000);
-    if(speed_array.length == 20){
-      console.log("okay");
-    }
+   
   });
   // var imageAddr =
   //     "http://195.238.126.147/file.jpg";
