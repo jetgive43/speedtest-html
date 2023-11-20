@@ -22,9 +22,8 @@
   <div class="container">
     <h1 class="text-center mt-4">Test Download Time</h1>
     <div class="d-grid">
-      <a href="#" download id = "start">Download link</a>
-      <p class="time"></p>
-      <p class="speed"></p>
+      <p class="time">0</p>
+      <p class="speed">0</p>
       <!-- <p>Your connection speed is:</p> -->
 
     </div>
@@ -32,62 +31,60 @@
 </body>
 <script>
   function startDownload() {
-      $('div.loading').show();
-      var startedAt, endedAt;
-      // Size in KB
-      var size = 16384;
+    $('div.loading').show();
+    var startedAt, endedAt;
+    // Size in KB
+    var size = 16384;
 
-      startedAt = (new Date().getTime());
-      console.log('.....Started.....');
-      // window.earlier_entries = window.performance.getEntries().length;
-      var settings = { cached: false, datatype: 'html' }
-      var time = (new Date().getTime());
+    startedAt = (new Date().getTime());
+    console.log('.....Started.....');
+    // window.earlier_entries = window.performance.getEntries().length;
+    var settings = { cached: false, datatype: 'html' }
+    var time = (new Date().getTime());
 
-      $.when(
-        $.ajax('http://195.238.126.147/file.sql', settings)
-      ).done(function (a1) {
-        endedAt = new Date().getTime();
-        var totalTime = (endedAt - startedAt);
-        console.log(totalTime);
-        // find_latency();
-        var totalsec = totalTime / 1000;
+    $.when(
+      $.ajax('http://195.238.126.147/doc.sql', settings)
+    ).done(function (a1) {
+      endedAt = new Date().getTime();
+      var totalTime = (endedAt - startedAt);
+      console.log(totalTime);
+      // find_latency();
+      var totalsec = totalTime / 1000;
 
-        // var totalsec = (totalTime - window.latency)/ 1000;
+      // var totalsec = (totalTime - window.latency)/ 1000;
 
-        console.log(totalsec);
-        var time_total = totalsec + " S";
-        var size_mb = (size / 1024 / totalsec);
-        var data, identifier, speed;
+      console.log(totalsec);
+      var time_total = totalsec + " S";
+      var size_mb = (size / 1024 / totalsec);
+      var data, identifier, speed;
 
-        if (totalsec > 0) {
-          if (size_mb >= 1) {
-            data = size_mb;
-            identifier = ' MB/s';
-          }
-          else {
-            data = size / totalsec;
-            identifier = ' KB/s';
-          }
-          console.log(data);
-          speed = (data.toFixed(2) + identifier).fixed(2);
+      if (totalsec > 0) {
+        if (size_mb >= 1) {
+          data = size_mb;
+          identifier = ' MB/s';
         }
         else {
-          speed = 'Too fast seem like around certainly >= 8MB/s';
+          data = size / totalsec;
+          identifier = ' KB/s';
         }
-        $('p.speed').html(speed);
-        $('p.time').html(time_total);
-        $('div.loading').hide();
-        $('div.text').show();
-      })
-    };
+        console.log(data);
+        speed = (data.toFixed(2) + identifier).fixed(2);
+      }
+      else {
+        speed = 'Too fast seem like around certainly >= 8MB/s';
+      }
+      $('p.speed').html(speed);
+      $('p.time').html(time_total);
+      $('div.loading').hide();
+      $('div.text').show();
+    })
+  };
 
-    $(document).ready(function () {
-      $("a#start").bind('click', function (event) {
-        $('div.text').hide();
-        event.preventDefault();
-        startDownload();
-      })
-    });
+  $(document).ready(function () {
+    $('div.text').hide();
+    event.preventDefault();
+    startDownload();
+  });
   // var imageAddr =
   //     "http://195.238.126.147/file.jpg";
   //   var downloadSize = 1000000; //bytes
@@ -156,4 +153,5 @@
   //     }
   //   }
 </script>
+
 </html>
