@@ -22,12 +22,10 @@
   <div class="container">
     <h1 class="text-center mt-4">Test Download Time</h1>
     <div class="d-grid">
-      <p id="bps_p"></p>
-      <p id="kbps_p"></p>
+      <a href="#" download id = "start">Download link</a>
       <p class="time"></p>
       <p class="speed"></p>
       <!-- <p>Your connection speed is:</p> -->
-    <a href="#" download id = "start">Download link</a>
 
     </div>
   </div>
@@ -52,7 +50,7 @@
         var totalTime = (endedAt - startedAt);
         console.log(totalTime);
         // find_latency();
-        var totalsec = totalTime / 1000;
+        var totalsec = totalTime / 1000 + " s";
 
         // var totalsec = (totalTime - window.latency)/ 1000;
 
