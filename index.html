@@ -17,13 +17,47 @@
     crossorigin="anonymous"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-
+<style>
+.speed{
+font-size:8vw;
+font-weight: 500;
+color:#21201c;
+}
+.time{
+font-size:4vw;
+font-weight: 500;
+color:#21201c;
+}
+.bliend{
+  font-size:3vw;
+  margin-top: 2vh;
+  font-weight: 500;
+  color:#23201f;
+}
+.bliend_time{
+  font-size:2.5vw;
+  margin-left: 12px;
+  font-weight: 500;
+  color:#23201f;
+}
+h1{
+  font-size: 2.5vw;
+}
+#time_area{
+  margin-top:10vh;
+}
+</style>
 <body>
   <div class="container">
-    <h1 class="text-center mt-4">Test Download Time</h1>
-    <div class="d-grid">
-      <p class="time">0</p>
-      <p class="speed">0</p>
+    <h1 class="text-center mt-4">Test Download</h1>
+    <div class="d-grid text-center mt-10">
+      <div class="d-flex justify-content-center position-relative" id="time_area">
+        <p class="time">0</p><p class="bliend_time">s</p>
+      </div>
+      <div class="d-flex justify-content-center">
+        <p class="speed">0</p><p class="bliend">Mbps</p>
+      </div>
+
       <!-- <p>Your connection speed is:</p> -->
 
     </div>
@@ -36,7 +70,7 @@
     $('div.loading').show();
     var startedAt, endedAt;
     // Size in KB
-    var size = 1000;
+    var size = 10000;
     let avarge_speed = 0;
     let avarge_time = 0;
 
@@ -47,7 +81,7 @@
     var time = (new Date().getTime());
 
     $.when(
-      $.ajax('http://195.238.126.147/doc.doc', settings),
+      $.ajax('http://195.238.126.147/10MB.bin', settings),
     ).done(function (a1) {
       endedAt = new Date().getTime();
       var totalTime = (endedAt - startedAt);
@@ -80,8 +114,8 @@
       time_array.forEach(element => {
         avarge_time += parseFloat(element) / time_array.length;
       });
-      let result_speed = avarge_speed.toFixed(2) + ' MB/s';
-      let result_time = avarge_time.toFixed(2) + ' s';
+      let result_speed = avarge_speed.toFixed(2);
+      let result_time = avarge_time.toFixed(2);
       $('p.speed').html(result_speed);
       $('p.time').html(result_time);
       $('div.loading').hide();
