@@ -55,8 +55,8 @@ function MeasureConnectionSpeed() {
     var speedKbps = (speedBps / 1024).toFixed(2);
     var speedMbps = (speedKbps / 1024).toFixed(2);
     document.getElementById("bps_p").innerText = speedBps+' bps';
-    document.getElementById("kbps_p").innerText = speedKbps + " bps";
-    document.getElementById("mbps_p").innerText = speedMbps + " bps";
+    document.getElementById("kbps_p").innerText = speedKbps + " kbps";
+    document.getElementById("mbps_p").innerText = speedMbps + " Mbps";
     ShowProgressMessage([
       "Your connection speed is:",
       speedBps + " bps",
