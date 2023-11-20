@@ -22,11 +22,10 @@
   <div class="container">
     <h1 class="text-center mt-4">Test Download Time</h1>
     <div class="d-grid">
-      <p class="mb-2">Your connection speed is:</p>
       <p id="bps_p"></p>
       <p id="kbps_p"></p>
-      <p id="mbps_p"></p>
-      <span class="speed"></span>
+      <p class="time"></p>
+      <p class="speed"></p>
       <!-- <p>Your connection speed is:</p> -->
     <a href="#" download id = "start">Download link</a>
 
@@ -76,7 +75,8 @@
         else {
           speed = 'Too fast seem like around certainly >= 8MB/s';
         }
-        $('span.speed').html(speed);
+        $('p.speed').html(speed);
+        $('p.time').html(totalsec);
         $('div.loading').hide();
         $('div.text').show();
       })
