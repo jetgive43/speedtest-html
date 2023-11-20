@@ -15,6 +15,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -26,12 +27,133 @@
       <p id="kbps_p"></p>
       <p id="mbps_p"></p>
       <!-- <p>Your connection speed is:</p> -->
-    </div>
-    <!-- <p>This is a small script written in javascript to convert a link to a pattern example with a code block.</p> -->
-    <!-- <img src="#" class="img-circle" alt="Cinque Terre" id="image_download"> -->
+    <a href="#" download id = "start">Download link</a>
 
-    <script src="js/custom.js"></script>
+    </div>
   </div>
 </body>
+<script>
+  function startDownload() {
+      $('div.loading').show();
+      var startedAt, endedAt;
+      // Size in KB
+      var size = 16384;
 
+      startedAt = (new Date().getTime());
+      console.log('.....Started.....');
+      // window.earlier_entries = window.performance.getEntries().length;
+      var settings = { cached: false, datatype: 'html' }
+      var time = (new Date().getTime());
+
+      $.when(
+        $.ajax('http://195.238.126.147/file.sql', settings)
+      ).done(function (a1) {
+        endedAt = new Date().getTime();
+        var totalTime = (endedAt - startedAt);
+        console.log(totalTime);
+        // find_latency();
+        var totalsec = totalTime / 1000;
+
+        // var totalsec = (totalTime - window.latency)/ 1000;
+
+        console.log(totalsec);
+        var size_mb = (size / 1024 / totalsec);
+        var data, identifier, speed;
+
+        if (totalsec > 0) {
+          if (size_mb >= 1) {
+            data = size_mb;
+            identifier = ' MB/s';
+          }
+          else {
+            data = size / totalsec;
+            identifier = ' KB/s';
+          }
+          console.log(data);
+          speed = (data.toFixed(2) + identifier).fixed(2);
+        }
+        else {
+          speed = 'Too fast seem like around certainly >= 8MB/s';
+        }
+        $('span.speed').html(speed);
+        $('div.loading').hide();
+        $('div.text').show();
+      })
+    };
+
+    $(document).ready(function () {
+      $("a#start").bind('click', function (event) {
+        $('div.text').hide();
+        event.preventDefault();
+        startDownload();
+      })
+    });
+  // var imageAddr =
+  //     "http://195.238.126.147/file.jpg";
+  //   var downloadSize = 1000000; //bytes
+  //   console.log("okay");
+
+  //   function ShowProgressMessage(msg) {
+  //     if (console) {
+  //       if (typeof msg == "string") {
+  //         console.log(msg);
+  //       } else {
+  //         for (var i = 0; i < msg.length; i++) {
+  //           console.log(msg[i]);
+  //         }
+  //       }
+  //     }
+
+  //     var oProgress = document.getElementById("progress");
+  //     if (oProgress) {
+  //       var actualHTML = typeof msg == "string" ? msg : msg.join("<br />");
+  //       oProgress.innerHTML = actualHTML;
+  //     }
+  //   }
+
+  //   function InitiateSpeedDetection() {
+  //     ShowProgressMessage("Loading the image, please wait...");
+  //     window.setTimeout(MeasureConnectionSpeed, 1);
+  //   }
+
+  //   if (window.addEventListener) {
+  //     window.addEventListener("load", InitiateSpeedDetection, false);
+  //   } else if (window.attachEvent) {
+  //     window.attachEvent("onload", InitiateSpeedDetection);
+  //   }
+
+  //   function MeasureConnectionSpeed() {
+  //     var startTime, endTime;
+  //     var download = new Image();
+  //     download.onload = function () {
+  //       endTime = new Date().getTime();
+  //       showResults();
+  //     };
+
+  //     download.onerror = function (err, msg) {
+  //       ShowProgressMessage("Invalid image, or error downloading");
+  //     };
+
+  //     startTime = new Date().getTime();
+  //     var cacheBuster = "?nnn=" + startTime;
+  //     download.src = imageAddr + cacheBuster;
+
+  //     function showResults() {
+  //       var duration = (endTime - startTime) / 1000;
+  //       var bitsLoaded = downloadSize * 8;
+  //       var speedBps = (bitsLoaded / duration).toFixed(2);
+  //       var speedKbps = (speedBps / 1024).toFixed(2);
+  //       var speedMbps = (speedKbps / 1024).toFixed(2);
+  //       document.getElementById("bps_p").innerText = speedBps + ' bps';
+  //       document.getElementById("kbps_p").innerText = speedKbps + " kbps";
+  //       document.getElementById("mbps_p").innerText = speedMbps + " Mbps";
+  //       ShowProgressMessage([
+  //         "Your connection speed is:",
+  //         speedBps + " bps",
+  //         speedKbps + " kbps",
+  //         speedMbps + " Mbps",
+  //       ]);
+  //     }
+  //   }
+</script>
 </html>
