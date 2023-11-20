@@ -75,23 +75,22 @@
       else {
         speed = 'Too fast seem like around certainly >= 8MB/s';
       }
-      // $('p.speed').html(speed);
-      // $('p.time').html(time_total);
-      // $('div.loading').hide();
-      // $('div.text').show();
     })
   };
 
   $(document).ready(function () {
     $('div.text').hide();
-    setInterval(() => {
-      startDownload();
-       if (speed_array.length == 20) {
-        console.log("okay");
-        console.log(speed_array);
-      }
-    },1000);
-   
+    (function repeat(number) {
+      startDownload(number);
+      if (number > 1) repeat(number - 1);
+    })(10);
+      // if (speed_array.length == 20) {
+      //   console.log("okay");
+      //   array.forEach(element => {
+      //     console.log(speed_array);
+      //   });
+      // }
+
   });
   // var imageAddr =
   //     "http://195.238.126.147/file.jpg";
