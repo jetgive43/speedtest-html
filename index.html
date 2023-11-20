@@ -66,14 +66,16 @@ h1{
 <script>
   var speed_array = [];
   var time_array = [];
-  function startDownload() {
+  let i = 0;
+  let cnt = 0;
+  async function startDownload(i) {
     $('div.loading').show();
     var startedAt, endedAt;
     // Size in KB
     var size = 10000;
     let avarge_speed = 0;
-    let avarge_time = 0;
-
+    let total_time = 0;
+    
     startedAt = (new Date().getTime());
     console.log('.....Started.....');
     // window.earlier_entries = window.performance.getEntries().length;
@@ -112,23 +114,26 @@ h1{
         avarge_speed += parseFloat(element) / speed_array.length;
       });
       time_array.forEach(element => {
-        avarge_time += parseFloat(element) / time_array.length;
+        total_time += parseFloat(element);
       });
       let result_speed = avarge_speed.toFixed(2);
-      let result_time = avarge_time.toFixed(2);
+      let result_time = total_time.toFixed(2);
       $('p.speed').html(result_speed);
       $('p.time').html(result_time);
       $('div.loading').hide();
       $('div.text').show();
+      const sleep = ms => new Promise(res => setTimeout(res, ms));
+      sleep(1);
+      if(cnt<30){
+      startDownload();
+      cnt++;
+      }
     })
   };
 
-  $(document).ready(function () {
+  $(document).ready(async function () {
     $('div.text').hide();
-    (function repeat(number) {
-      startDownload(number);
-      if (number > 1) repeat(number - 1);
-    })(20);
+    startDownload();
   });
 </script>
 
