@@ -22,13 +22,19 @@
   #myProgress {
     width: 100%;
     background-color: #ddd;
-    margin-top: 10vh;
+    margin-top: 20px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
   }
 
   #myBar {
     width: 1%;
     height: 30px;
     background-color: #04AA6D;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
   }
 
   #time_area {
@@ -110,6 +116,9 @@
       font-size: 80px;
       font-weight: 600;
       color: #21201c;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
     }
 
     .bliend {
@@ -118,6 +127,9 @@
       color: #23201f;
       margin-top: 0px;
       margin-left: 20px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
     }
 
     .time {
@@ -132,6 +144,10 @@
       font-weight: 500;
       color: #23201f;
       margin-left: 15px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+
     }
 
     #speed_area {
@@ -140,14 +156,25 @@
     }
 
     #speed_area {
-      margin-top: 10vh;
+      margin-top: 10svh;
+    }
+
+    .value_text {
+      font-size: 30px;
+      font-weight: 600;
+      color: #23201f;
+      margin-top: 20px;
+      margin-left: 20px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
     }
   }
 </style>
 
 <body>
   <div class="container">
-    <div class="d-grid text-center mt-10" >
+    <div class="d-grid text-center mt-10">
       <div class="d-flex justify-content-center" id="speed_area">
         <p class="speed">0</p>
         <p class="bliend">Mbps</p>
@@ -159,8 +186,13 @@
       <div class="d-flex justify-content-center text-left">
         <p class="client_ip">Visitor:</p>
         <p class="bliend_client"></p>
+
+      </div>
+      <div class="text-center mt-10">
+        <p class="value_text">0%</p>
       </div>
       <div id="myProgress">
+
         <div id="myBar"></div>
       </div>
       <!-- <p>Your connection speed is:</p> -->
@@ -256,9 +288,10 @@
         cnt++;
         i = 1;
         var elem = document.getElementById("myBar");
-        var width = 1;
-        console.log(cnt);
-        width += 100/15 * cnt;
+        var width = 0;
+        width += 100 / 15 * cnt;
+        let result = width.toFixed(2) + "%"
+        $('p.value_text').html(result);
         elem.style.width = width + "%";
       }
     })
