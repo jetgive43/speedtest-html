@@ -16,10 +16,16 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
 </head>
 <style>
 .speed{
 font-size:8vw;
+font-weight: 500;
+color:#21201c;
+}
+.client_ip{
+font-size:2.5vw;
 font-weight: 500;
 color:#21201c;
 }
@@ -35,6 +41,18 @@ color:#21201c;
   color:#23201f;
 }
 .bliend_time{
+  font-size:2.5vw;
+  margin-left: 12px;
+  font-weight: 500;
+  color:#23201f;
+}
+.bliend_client{
+  font-size:2.5vw;
+  margin-left: 12px;
+  font-weight: 500;
+  color:#23201f;
+}
+.bliend_node{
   font-size:2.5vw;
   margin-left: 12px;
   font-weight: 500;
@@ -56,7 +74,12 @@ h1{
       <div class="d-flex justify-content-center">
         <p class="speed">0</p><p class="bliend">Mbps</p>
       </div>
-
+      <div class="d-flex justify-content-center">
+        <p class="client_ip">Node:</p><p class="bliend_node"></p>
+      </div>
+      <div class="d-flex justify-content-center">
+        <p class="client_ip">Visitor:</p><p class="bliend_client"></p>
+      </div>
       <!-- <p>Your connection speed is:</p> -->
 
     </div>
@@ -133,7 +156,13 @@ h1{
   $(document).ready(async function () {
     $('div.text').hide();
     startDownload();
-  });
+    
+    $.get("http://ipinfo.io", function(response) { 
+      console.log(response.ip); 
+      let client_id = response.ip;
+      $('p.bliend_client').text(client_id);
+      $('p.bliend_node').text(location.host);
+    }, "jsonp");  });
 </script>
 
 </html>
