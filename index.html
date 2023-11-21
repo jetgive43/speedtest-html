@@ -16,69 +16,152 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  
+
 </head>
 <style>
-.speed{
-font-size:8vw;
-font-weight: 500;
-color:#21201c;
-}
-.client_ip{
-font-size:2.5vw;
-font-weight: 500;
-color:#21201c;
-}
-.time{
-font-size:4vw;
-font-weight: 500;
-color:#21201c;
-}
-.bliend{
-  font-size:3vw;
-  margin-top: 2vh;
-  font-weight: 500;
-  color:#23201f;
-}
-.bliend_time{
-  font-size:2.5vw;
-  margin-left: 12px;
-  font-weight: 500;
-  color:#23201f;
-}
-.bliend_client{
-  font-size:2.5vw;
-  margin-left: 12px;
-  font-weight: 500;
-  color:#23201f;
-}
-.bliend_node{
-  font-size:2.5vw;
-  margin-left: 12px;
-  font-weight: 500;
-  color:#23201f;
-}
-h1{
-  font-size: 2.5vw;
-}
-#time_area{
-  margin-top:10vh;
-}
+  #myProgress {
+    width: 100%;
+    background-color: #ddd;
+    margin-top: 10vh;
+  }
+
+  #myBar {
+    width: 1%;
+    height: 30px;
+    background-color: #04AA6D;
+  }
+
+  #time_area {
+    margin-top: 10vh;
+  }
+
+  .speed {
+    font-size: 8vw;
+    font-weight: 500;
+    color: #21201c;
+  }
+
+  .client_ip {
+    font-size: 2.5vw;
+    font-weight: 500;
+    color: #21201c;
+  }
+
+  .time {
+    font-size: 4vw;
+    font-weight: 500;
+    color: #21201c;
+  }
+
+  .bliend {
+    font-size: 3vw;
+    margin-top: 2vh;
+    font-weight: 500;
+    color: #23201f;
+  }
+
+  .bliend_time {
+    font-size: 2.5vw;
+    margin-left: 12px;
+    font-weight: 500;
+    color: #23201f;
+  }
+
+  .bliend_client {
+    font-size: 2.5vw;
+    margin-left: 12px;
+    font-weight: 500;
+    color: #23201f;
+  }
+
+  .bliend_node {
+    font-size: 2.5vw;
+    margin-left: 12px;
+    font-weight: 500;
+    color: #23201f;
+  }
+
+  h1 {
+    font-size: 2.5vw;
+  }
+
+  @media (min-width: 468px) {
+    .bliend_node {
+      font-size: 40px;
+      margin-left: 12px;
+      font-weight: 500;
+      color: #23201f;
+    }
+
+    .client_ip {
+      font-size: 40px;
+      font-weight: 500;
+      color: #21201c;
+    }
+
+    .bliend_client {
+      font-size: 40px;
+      margin-left: 12px;
+      font-weight: 500;
+      color: #23201f;
+    }
+
+    .speed {
+      font-size: 80px;
+      font-weight: 600;
+      color: #21201c;
+    }
+
+    .bliend {
+      font-size: 60px;
+      font-weight: 600;
+      color: #23201f;
+      margin-top: 0px;
+      margin-left: 20px;
+    }
+
+    .time {
+      font-size: 70px;
+      font-weight: 500;
+      color: #21201c;
+    }
+
+    .bliend_time {
+      font-size: 70px;
+      margin-top: 0px;
+      font-weight: 500;
+      color: #23201f;
+      margin-left: 15px;
+    }
+
+    #speed_area {
+      text-align: center;
+      align-items: center;
+    }
+
+    #speed_area {
+      margin-top: 10vh;
+    }
+  }
 </style>
+
 <body>
   <div class="container">
-    <div class="d-grid text-center mt-10">
-      <div class="d-flex justify-content-center position-relative" id="time_area">
-        <p class="time">0</p><p class="bliend_time">s</p>
+    <div class="d-grid text-center mt-10" >
+      <div class="d-flex justify-content-center" id="speed_area">
+        <p class="speed">0</p>
+        <p class="bliend">Mbps</p>
       </div>
-      <div class="d-flex justify-content-center">
-        <p class="speed">0</p><p class="bliend">Mbps</p>
+      <div class="d-flex justify-content-center text-left">
+        <p class="client_ip">Node:</p>
+        <p class="bliend_node"></p>
       </div>
-      <div class="d-flex justify-content-center">
-        <p class="client_ip">Node:</p><p class="bliend_node"></p>
+      <div class="d-flex justify-content-center text-left">
+        <p class="client_ip">Visitor:</p>
+        <p class="bliend_client"></p>
       </div>
-      <div class="d-flex justify-content-center">
-        <p class="client_ip">Visitor:</p><p class="bliend_client"></p>
+      <div id="myProgress">
+        <div id="myBar"></div>
       </div>
       <!-- <p>Your connection speed is:</p> -->
 
@@ -90,22 +173,43 @@ h1{
   var time_array = [];
   let i = 0;
   let cnt = 0;
-  async function startDownload(i) {
+  function move() {
+    if (i == 0) {
+      i = 1;
+      var elem = document.getElementById("myBar");
+      var width = 1;
+      var id = setInterval(frame, 10);
+      console.log(id);
+      function frame() {
+        if (width >= 100) {
+          clearInterval(id);
+          i = 0;
+        } else {
+          width++;
+          elem.style.width = width + "%";
+        }
+      }
+    }
+  }
+
+  function startDownload() {
     $('div.loading').show();
     var startedAt, endedAt;
     // Size in KB
     var size = 10000;
     let avarge_speed = 0;
     let total_time = 0;
-    
+
     startedAt = (new Date().getTime());
     console.log('.....Started.....');
+
     // window.earlier_entries = window.performance.getEntries().length;
-    var settings = { cached: false, datatype: 'html' }
+    var settings = { datatype: 'html' }
     var time = (new Date().getTime());
+    let random_cache = Math.random() * 10000000;
 
     $.when(
-      $.ajax('/10MB.bin', settings),
+      $.ajax(`/1MB.doc?x=${parseInt(random_cache)}`, settings),
     ).done(function (a1) {
       endedAt = new Date().getTime();
       var totalTime = (endedAt - startedAt);
@@ -144,11 +248,18 @@ h1{
       $('p.time').html(result_time);
       $('div.loading').hide();
       $('div.text').show();
+
       const sleep = ms => new Promise(res => setTimeout(res, ms));
       sleep(1);
-      if(cnt<30){
-      startDownload();
-      cnt++;
+      if (cnt < 15) {
+        startDownload();
+        cnt++;
+        i = 1;
+        var elem = document.getElementById("myBar");
+        var width = 1;
+        console.log(cnt);
+        width += 100/15 * cnt;
+        elem.style.width = width + "%";
       }
     })
   };
@@ -156,13 +267,13 @@ h1{
   $(document).ready(async function () {
     $('div.text').hide();
     startDownload();
-    
-    $.get("http://ipinfo.io", function(response) { 
-      console.log(response.ip); 
+
+    $.get("http://ipinfo.io", function (response) {
       let client_id = response.ip;
       $('p.bliend_client').text(client_id);
       $('p.bliend_node').text(location.host);
-    }, "jsonp");  });
+    }, "jsonp");
+  });
 </script>
 
 </html>
